@@ -66,7 +66,7 @@ pip install -r requirements.txt
 
 ## Autores
 
-- Monserrat Vera
+- Montserrat Vera
 - Khoen San Martín
 
 ## Referencia principal
