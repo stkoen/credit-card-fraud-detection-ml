@@ -64,10 +64,11 @@ pip install -r requirements.txt
 3. Abrir `credit_card_fraud_detection_ml.ipynb` en Google Colab o Jupyter Notebook.
 4. Ejecutar todas las celdas en orden.
 
-## Autores
+## Contexto académico y autoría
 
-- Montserrat Vera
-- Khoen San Martín
+Proyecto académico del curso Ciencia de Datos para la Economía, Universidad Diego Portales.
+
+Autores: Montserrat Vera y Khoen San Martín.
 
 ## Referencia principal
 
