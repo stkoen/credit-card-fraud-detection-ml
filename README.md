@@ -1,75 +1,46 @@
 # Credit Card Fraud Detection with Machine Learning
 
-Proyecto de detección de fraude con tarjetas de crédito desarrollado a partir del enfoque de Ileberi, Sun y Wang (2022). El análisis compara Regresión Logística, Árbol de Decisión y Random Forest, evalúa los subconjuntos de variables `v1`–`v5` reportados por los autores e incorpora XGBoost como modelo adicional.
+**Montserrat Vera y Khoen San Martín · Ciencia de Datos para la Economía · Universidad Diego Portales**
 
-## Objetivo
+Proyecto académico de implementación y evaluación de modelos de clasificación, basado en la metodología de Ileberi, Sun y Wang (2022). El trabajo contrasta regresión logística, árbol de decisión y Random Forest, examina las selecciones de variables `v1`–`v5` del artículo e incorpora XGBoost como extensión.
 
-Evaluar distintos modelos supervisados en una base altamente desbalanceada y analizar el equilibrio entre detección de fraude, falsas alertas y capacidad de generalización.
+El propósito es estudiar y contrastar una metodología publicada; no se reivindica un algoritmo original ni una reproducción numérica exacta de todos los resultados del artículo.
 
-## Datos
+## Datos y enfoque
 
-Se utiliza el conjunto de datos **Credit Card Fraud Detection** de ULB/Worldline, disponible en Kaggle:
+Se utiliza la base [Credit Card Fraud Detection de ULB/Worldline](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud), con 284.807 transacciones y 492 casos de fraude. Las variables `V1`–`V28` están anonimizadas mediante componentes principales. El archivo `creditcard.csv` no se distribuye en el repositorio; el notebook lo obtiene con `kagglehub`.
 
-https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+El análisis considera exploración de datos, partición estratificada, escalamiento Min–Max, SMOTE aplicado únicamente al entrenamiento, comparación de subconjuntos de variables y una evaluación adicional tras retirar filas duplicadas.
 
-La base contiene 284.807 transacciones, de las cuales 492 corresponden a fraude. Las variables `V1`–`V28` se encuentran anonimizadas mediante análisis de componentes principales.
+Dado el desbalance, los resultados se examinan con precision, recall, especificidad, F1-score, ROC-AUC, PR-AUC y matrices de confusión, no solamente con accuracy.
 
-El archivo `creditcard.csv` no se incluye en el repositorio debido a su tamaño. El notebook lo descarga mediante `kagglehub`.
+## Resultados destacados
 
-## Metodología
+En la implementación inicial, Random Forest con las 30 variables obtuvo el mayor F1-score global. Entre los subconjuntos evaluados, `v3` detectó 84 de 98 fraudes utilizando 13 variables.
 
-El flujo de trabajo incluye:
+En la evaluación sin filas duplicadas:
 
-- análisis exploratorio de datos;
-- partición estratificada de entrenamiento y prueba;
-- escalamiento Min–Max;
-- balanceo mediante SMOTE aplicado solo al entrenamiento;
-- evaluación de Regresión Logística, Árbol de Decisión y Random Forest;
-- comparación de los vectores de variables `v1`–`v5`;
-- análisis de robustez después de eliminar filas completamente duplicadas;
-- incorporación de XGBoost como modelo adicional;
-- evaluación mediante Accuracy, Precision, Recall, Especificidad, F1-score, ROC-AUC, PR-AUC y matrices de confusión.
+| Modelo | Fraudes detectados | Falsas alertas |
+|---|---:|---:|
+| Random Forest | 73 de 95 | 8 |
+| XGBoost | 79 de 95 | 157 |
 
-## Principales resultados
+XGBoost presentó mayor recall; Random Forest generó considerablemente menos falsas alertas. La elección entre modelos depende del costo de omitir fraudes y del costo de investigar alertas, que no se estiman monetariamente en este trabajo.
 
-Random Forest fue el modelo con mejor equilibrio operativo entre los evaluados.
+## Código y ejecución
 
-En la implementación inicial, Random Forest con las 30 variables obtuvo el mejor F1-score global. Entre los subconjuntos de variables, `v3` presentó el mejor desempeño y detectó 84 de los 98 fraudes utilizando 13 variables.
-
-En la base sin filas duplicadas:
-
-- Random Forest detectó 73 de 95 fraudes y generó 8 falsas alertas.
-- XGBoost detectó 79 de 95 fraudes y generó 157 falsas alertas.
-
-XGBoost alcanzó un recall mayor, mientras que Random Forest ofreció una relación más favorable entre fraudes detectados y falsas alarmas.
-
-## Estructura del repositorio
-
-```text
-credit-card-fraud-detection-ml/
-├── README.md
-├── requirements.txt
-└── credit_card_fraud_detection_ml.ipynb
-```
-
-## Ejecución
-
-1. Descargar o clonar el repositorio.
-2. Instalar las dependencias:
+El análisis está disponible en [credit_card_fraud_detection_ml.ipynb](credit_card_fraud_detection_ml.ipynb). Para reproducirlo en Jupyter o Google Colab:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Abrir `credit_card_fraud_detection_ml.ipynb` en Google Colab o Jupyter Notebook.
-4. Ejecutar todas las celdas en orden.
+Luego, abrir el notebook y ejecutar las celdas en orden. La descarga de la base requiere conexión a Internet. El código y los resultados deben interpretarse en el contexto de este ejercicio académico.
 
-## Contexto académico y autoría
+## Referencia y autoría
 
-Proyecto académico del curso Ciencia de Datos para la Economía, Universidad Diego Portales.
-
-Autores: Montserrat Vera y Khoen San Martín.
-
-## Referencia principal
+**Autores del proyecto académico:** Montserrat Vera y Khoen San Martín.
 
 Ileberi, E., Sun, Y., & Wang, Z. (2022). *A machine learning based credit card fraud detection using the GA algorithm for feature selection*. Journal of Big Data, 9, Article 24.
+
+La referencia se reconoce como fuente metodológica; el conjunto de datos se atribuye a ULB/Worldline.
